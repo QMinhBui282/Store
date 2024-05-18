@@ -29,7 +29,7 @@
                                     <div class="col-lg-6">
                                       <label for="nameBasic" class="form-label">Ảnh thương hiệu</label>
                                       <div class="d-flex justify-content-left">
-                                          <img src="/storage/products/defaulppicture.jpg"  alt="" class="d-block rounded border border-2 border-light me-2" height="110" width="110" id="uploadedAvatar">
+                                          <img src="/storage/products/defaultpicture.jfif"  alt="" class="d-block rounded border border-2 border-light me-2" height="110" width="110" id="uploadedAvatar">
                                           <div class="d-flex flex-column justify-content-center">
                                               <label for="upload" class="btn btn-primary " tabindex="0">
                                                   <span class="d-none d-sm-block">Tải ảnh lên</span>

@@ -132,12 +132,39 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Đã cập nhật thông tin người dùng thành công.');
     }
 
-    public function destroy(User $user)
-    {
-        $user->delete();
+//     public function destroy(User $user)
+// {
+//     try {
+//         // Thực hiện thao tác xóa
+//         $user->delete();
 
-       return response()->json([
-           'success' => true
-       ]);
+//         // Trả về phản hồi JSON để thông báo rằng thao tác đã thành công
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Người dùng đã được xóa'
+//         ]);
+//     } catch (\Exception $e) {
+//         // Xử lý các trường hợp lỗi và trả về một phản hồi phù hợp nếu xảy ra vấn đề
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Xóa người dùng thất bại',
+//             'error' => $e->getMessage()
+//         ]);
+//     }
+// }
+public function destroy(User $user)
+{
+    try {
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'Người dùng đã được xóa thành công');
+    } catch (\Exception $e) {
+
+        // Trả về thông báo lỗi cho người dùng
+        return redirect()->route('users.index')->with('error', 'Xóa người dùng thất bại. Vui lòng thử lại.');
     }
+}
+
+
+
+
 }

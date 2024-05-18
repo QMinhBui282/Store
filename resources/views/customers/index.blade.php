@@ -85,16 +85,22 @@ Thêm khách hàng
                         <td>{{$customer->address}}</td>
                         <td>{{$customer->created_at}}</td>
                         <td>
-                            <div class="dropdown" style="text-align: center;">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                <button class="dropdown-item btn" data-bs-toggle="modal" data-bs-target="#CategoryeditModal{{$customer->id}}"><i class="bx bx-edit-alt me-1"></i>Sửa</button>
-                                <a class="dropdown-item" href="{{route('customers.destroy', $customer)}}" onclick="return window.confirm('Bạn có xác nhận xóa không');"><i class="bx bx-trash me-1"></i> Xóa</a>
-                                </div>
-                            </div>
-                        </td>
+    <div class="dropdown" style="text-align: center;">
+        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+            <i class="bx bx-dots-vertical-rounded"></i>
+        </button>
+        <div class="dropdown-menu">
+            <button class="dropdown-item btn" data-bs-toggle="modal" data-bs-target="#CategoryeditModal{{ $customer->id }}">
+                <i class="bx bx-edit-alt me-1"></i>Sửa
+            </button>
+            <button class="dropdown-item" onclick="deleteCustomer({{ $customer->id }})">
+                <i class="bx bx-trash me-1"></i> Xóa
+            </button>
+        </div>
+    </div>
+</td>
+
+
                     </tr>
                     <form action="{{ route('customers.update', $customer) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -154,4 +160,39 @@ Thêm khách hàng
             {{ $customers->render() }}
         </div>
     </div>
+@endsection
+
+@section('js')
+<script>
+    function deleteCustomer(customerId) {
+        if (confirm('Bạn có chắc chắn muốn xóa khách hàng này không?')) {
+            fetch('{{ route("customers.destroy", "__customer_id") }}'.replace('__customer_id', customerId), {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Có lỗi xảy ra khi xóa khách hàng.');
+            })
+            .then(data => {
+                if (data.success) {
+                    // Nếu xóa thành công, làm mới trang hoặc làm mới danh sách khách hàng
+                    window.location.reload(); // Làm mới trang
+                    // Hoặc làm mới danh sách khách hàng
+                    // fetchCustomers(); 
+                } else {
+                    throw new Error(data.message);
+                }
+            })
+            .catch(error => {
+                console.error(error.message);
+                alert('Có lỗi xảy ra khi xóa khách hàng.');
+            });
+        }
+    }
+</script>
 @endsection

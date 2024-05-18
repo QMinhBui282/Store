@@ -92,13 +92,13 @@
                 <ul class="menu-sub">
                   <a href="javascript:void(0);" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-phone"></i>
-                    <div data-i18n="Tables">0389426653</div>
+                    <div data-i18n="Tables">0857556818</div>
                   </a>
-                  <a href="https://www.facebook.com/phuoc.bui.52643821" target="_blank" class="menu-link">
+                  <a href="https://www.facebook.com/bqm2802" target="_blank" class="menu-link">
                     <i class='menu-icon tf-icons bx bxl-facebook-square'></i>
                     <div data-i18n="Tables">Facebook</div>
                   </a>
-                  <a href="https://zalo.me/0389426653" target="_blank" class="menu-link">
+                  <a href="https://zalo.me/0857556818" target="_blank" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-phone-call"></i>
                     <div data-i18n="Tables">Zalo</div>
                   </a>
