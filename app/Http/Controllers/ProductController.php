@@ -73,12 +73,13 @@ class ProductController extends Controller
         elseif ($request->brand_id) {
             $products = $products->where('brand_id', 'LIKE', "{$request->brand_id}");
         }
-        $products = $products->latest()->paginate(100);
+        $products = $products->latest()->paginate(10);
         if (request()->wantsJson()) {
             return ProductResource::collection($products);
         }
         return view('products.index',compact('products', 'brands','categorys','qty'));
     }
+
 
 
    
@@ -210,11 +211,29 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if ($product->image) {
-            Storage::delete($product->image);
+        try {
+            // Xóa ảnh của sản phẩm nếu tồn tại
+            if ($product->image) {
+                Storage::delete($product->image);
+            }
+    
+            // Xóa sản phẩm
+            $product->delete();
+    
+            // Trả về JSON response nếu là AJAX request
+            if (request()->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Sản phẩm đã được xóa thành công.']);
+            }
+    
+            // Trả về redirect response nếu không phải AJAX request
+            return redirect()->route('products.index')->with('success', 'Đã xóa sản phẩm.');
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa sản phẩm.', 'error' => $e->getMessage()]);
+            }
+    
+            return redirect()->route('products.index')->with('error', 'Có lỗi xảy ra khi xóa sản phẩm.');
         }
-        $product = Product::delete($product);
-
-        return redirect()->route('products.index')->with('success', 'Đã xóa sản phẩm.');
     }
+    
 }

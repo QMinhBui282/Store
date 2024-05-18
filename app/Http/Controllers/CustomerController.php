@@ -98,12 +98,31 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('Thành công', 'Đã cập nhật thông tin khách hàng thành công.');
     }
 
+    // public function destroy(Customer $customer)
+    // {
+    //     $customer->delete();
+
+    //    return response()->json([
+    //        'success' => true
+    //    ]);
+    // }
     public function destroy(Customer $customer)
     {
-        $customer->delete();
-
-       return response()->json([
-           'success' => true
-       ]);
+        try {
+            $customer->delete();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Khách hàng đã được xóa thành công.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra khi xóa khách hàng.',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
+    
+
 }

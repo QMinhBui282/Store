@@ -298,7 +298,7 @@ class Cart extends Component {
                                             <td><h1>HÓA ĐƠN BÁN HÀNG</h1></td>
                                         </tr>
                                         <tr>
-                                            <td><h2>SĐT:0389426643</h2></td>
+                                            <td><h2>SĐT:0857556818</h2></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -314,7 +314,7 @@ class Cart extends Component {
                                         </thead>
                                         <tbody>
                                             <tr>                                   
-                                                <td><h1>{customers.lastname}</h1></td>                                         
+                                                <td><h1>{customers.last_name}</h1></td>                                         
                                                 <td class="d-flex justify-content-end"> <h2>No:/</h2></td>
                                             </tr>
                                             <tr>
@@ -575,7 +575,7 @@ class Cart extends Component {
                     <div className="order-product">
                         <div className="row">
                            
-                        <div class="col-md-12 d-flex flex-row flex-wrap bd-highlight list-item mt-2 overflow-auto vh-100">
+                        <div class="col-md-12 d-flex flex-row flex-wrap bd-highlight list-item mt-2 overflow-auto vh-80">
                             {products.map((p) => (
                                 <div class="col-xl-2 col-md-4 col-6 p-1">
                             <div onClick={() => this.addProductToCart(p.barcode)}

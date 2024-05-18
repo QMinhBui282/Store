@@ -29,7 +29,7 @@ Thêm người dùng
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                        <label for="nameBasic" class="form-label">Tên người dùng</label>
+                                        <label for="name" class="form-label">Tên người dùng</label>
                                         <input type="text" name="last_name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nhập tên người dùng">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -38,8 +38,8 @@ Thêm người dùng
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                        <label for="nameBasic" class="form-label">Mật khẩu</label>
-                                        <input type="password" name="password" id="password" class="form-control @error('name') is-invalid @enderror" placeholder="Nhập mật khẩu">
+                                        <label for="password" class="form-label">Mật khẩu</label>
+                                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Nhập mật khẩu">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -49,7 +49,7 @@ Thêm người dùng
                                         <div class="mb-3">
                                         <label for="nameBasic" class="form-label">Ảnh</label>
                                         <div class="d-flex justify-content-left">
-                                          <img src="/storage/products/defaulppicture.jpg"  alt="" class="d-block rounded border border-2 border-light me-2" height="110" width="110" id="uploadedAvatar">
+                                          <img src="/storage/products/defaultpicture.jfif"  alt="" class="d-block rounded border border-2 border-light me-2" height="110" width="110" id="uploadedAvatar">
                                           <div class="d-flex flex-column justify-content-center">
                                               <label for="upload" class="btn btn-primary " tabindex="0">
                                                   <span class="d-none d-sm-block">Tải ảnh lên</span>
@@ -74,8 +74,8 @@ Thêm người dùng
 
                                     <div class="col-lg-6 ">
                                         <div class="mb-3">
-                                        <label for="nameBasic" class="form-label">Email</label>
-                                        <input type="email" name="email" id="phone" class="form-control @error('name') is-invalid @enderror" placeholder="Nhập email">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Nhập email">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -83,8 +83,8 @@ Thêm người dùng
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                        <label for="nameBasic" class="form-label">Số điện thoại</label>
-                                        <input type="text" name="phone" id="phone" class="form-control @error('name') is-invalid @enderror" placeholder="Nhập số điện thoại">
+                                        <label for="phone" class="form-label">Số điện thoại</label>
+                                        <input type="text" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Nhập số điện thoại">
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -157,7 +157,14 @@ Thêm người dùng
 
                                 <div class="dropdown-menu">
                                 <button class="dropdown-item btn" data-bs-toggle="modal" data-bs-target="#CategoryeditModal{{$user->id}}"><i class="bx bx-edit-alt me-1"></i>Sửa</button>
-                                <a class="dropdown-item" href="{{route('users.destroy', $user)}}" onclick="return window.confirm('Bạn có xác nhận xóa không');"><i class="bx bx-trash me-1"></i> Xóa</a>
+                                <a class="dropdown-item" href="{{route('users.destroy', $user)}}" onclick="event.preventDefault(); if(confirm('Bạn có xác nhận xóa không?')) document.getElementById('delete-form-{{ $user->id }}').submit();">
+    <i class="bx bx-trash me-1"></i> Xóa
+</a>
+<form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user) }}" method="POST" style="display: none;">
+    @csrf
+    @method('DELETE')
+</form>
+
                                 </div>
                             
 
@@ -281,34 +288,35 @@ Thêm người dùng
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $(document).on('click', '.btn-delete', function () {
-                $this = $(this);
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                })
-
-                swalWithBootstrapButtons.fire({
-                    title: 'Are you sure?',
-                    text: "Do you really want to delete this user?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        $.post($this.data('url'), {_method: 'DELETE', _token: '{{csrf_token()}}'}, function (res) {
-                            $this.closest('tr').fadeOut(500, function () {
-                                $(this).remove();
-                            })
-                        })
-                    }
-                })
-            })
+    $(document).on('click', '.btn-delete', function () {
+        $this = $(this);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
         })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Do you really want to delete this user?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) { // Change from result.value to result.isConfirmed
+                $.post($this.data('url'), {_method: 'DELETE', _token: '{{csrf_token()}}'}, function (res) {
+                    $this.closest('tr').fadeOut(500, function () {
+                        $(this).remove();
+                    })
+                })
+            }
+        })
+    })
+})
+
     </script>
 @endsection

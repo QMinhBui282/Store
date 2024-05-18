@@ -201,7 +201,7 @@
                                 <div class="form-group text-center mb-3">
                                 <div class="alert alert-dark mb-0" role="alert"><label for="description">Ảnh sản phẩm</label></div>
                                     <div class="d-flex justify-content-center mt-2">
-                                        <img src="/storage/products/defaulppicture.jpg"  alt="" class="d-block" height="140" width="140" id="uploadedAvatar">
+                                        <img src="/storage/products/defaultpicture.jfif"  alt="" class="d-block" height="140" width="140" id="uploadedAvatar">
                                     
                                     </div>
                                     <div class="d-flex justify-content-center mb-4">

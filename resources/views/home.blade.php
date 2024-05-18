@@ -65,7 +65,7 @@
                                 <a class="dropdown-item" href="javascript:void(0);">View More</a>
                               </div>
                             </div>
-                          </div>
+                          </div>  
                           <span>Nhập hàng</span>
                           <h3 class="card-title text-nowrap mb-1">{{ number_format(($incomep))}}{{ config('settings.currency_symbol') }}</h3>
                           <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small> -->

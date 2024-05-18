@@ -38,7 +38,7 @@ class CartController extends Controller
         $barcode = $request->barcode;
 
         $product = Product::where('barcode', $barcode)->first();
-        $cart = $request->user()->cart()->where('barcode', $barcode)->first();
+        $cart = $request->user()->cart()->where('barcode', $barcode) ->first();
         if ($cart) {
             // check product quantity
             if ($product->quantity <= $cart->pivot->quantity) {
