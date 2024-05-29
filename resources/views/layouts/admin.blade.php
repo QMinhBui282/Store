@@ -42,6 +42,7 @@
     <!-- Helpers -->
     <script src="{{ asset('admin/assets/admin/layout2/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('admin/assets/admin/layout2/assets/js/config.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="{{ asset('admin/assets/ckeditor/ckeditor.js') }}"></script>
 
     @vite([ 'resources/js/app.js'])

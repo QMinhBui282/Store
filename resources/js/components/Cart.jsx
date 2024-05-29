@@ -277,6 +277,7 @@ class Cart extends Component {
         });
       }
     render() {
+        
         const { cart, products, customers, barcode } = this.state;
         return (
             <div className="row">
@@ -313,17 +314,18 @@ class Cart extends Component {
                                             <th width="30%"></th>
                                         </thead>
                                         <tbody>
-                                            <tr>                                   
-                                                <td><h1>{customers.last_name}</h1></td>                                         
-                                                <td class="d-flex justify-content-end"> <h2>No:/</h2></td>
-                                            </tr>
-                                            <tr>
-                                                <td><h2>ĐC:</h2></td>
-                                            </tr>
-                                            <tr>
-                                                <td><h2>SĐT:</h2></td>
-                                                <td class="d-flex justify-content-end"> <h2></h2></td>
-                                            </tr>
+                                        <tr>                                   
+    <td><h1>{customers.last_name}</h1></td>                                         
+    <td class="d-flex justify-content-end"> <h2>No: {this.state.no}</h2></td>
+</tr>
+<tr>
+    <td><h2>ĐC: {customers.address}</h2></td>
+</tr>
+<tr>
+    <td><h2>SĐT: {customers.phone}</h2></td>
+    <td class="d-flex justify-content-end"> <h2></h2></td>
+</tr>
+
                                             
                                         </tbody>
                                     </table>

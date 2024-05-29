@@ -48,4 +48,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/cargo/change-qty', [CargoController::class, 'changeQty']);
     Route::delete('/cargo/delete', [CargoController::class, 'delete']);
     Route::delete('/cargo/empty', [CargoController::class, 'empty']);
+    Route::get('/view-more/{section}', 'ChartController@showChart')->name('view_more_chart');
+
 });
